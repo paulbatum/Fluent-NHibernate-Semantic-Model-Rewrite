@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4A693F88-A29A-4FC9-B086-24956848FD99}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FluentNHibernate.Testing</RootNamespace>
+    <AssemblyName>FluentNHibernate.Testing</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Iesi.Collections, Version=1.0.0.3, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\tools\NHibernate\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=2.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\tools\NHibernate\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\tools\nunit\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks, Version=3.5.0.1, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\tools\rhino\Rhino.Mocks.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.SQLite, Version=1.0.51.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\tools\sqlite\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DomainModel\Music.cs" />
+    <Compile Include="BackwardCompatibility\ClassMapTester.cs" />
+    <Compile Include="BackwardCompatibility\MusicMappingTester.cs" />
+    <Compile Include="MappingModel\AttributeStoreTester.cs" />
+    <Compile Include="MappingModel\ClassMappingTester.cs" />
+    <Compile Include="MappingModel\Collections\OneToManyMappingTester.cs" />
+    <Compile Include="MappingModel\Conventions\NamingConventionTester.cs" />
+    <Compile Include="MappingModel\HibernateMappingTester.cs" />
+    <Compile Include="MappingModel\MappingMother.cs" />
+    <Compile Include="MappingModel\MappingTestingExtensions.cs" />
+    <Compile Include="MappingModel\Output\HbmBagWriterTester.cs" />
+    <Compile Include="MappingModel\Output\HbmClassWriterTester.cs" />
+    <Compile Include="MappingModel\Output\HbmIdWriterTester.cs" />
+    <Compile Include="MappingModel\Output\HbmKeyWriterTester.cs" />
+    <Compile Include="MappingModel\Output\HbmColumnWriterTester.cs" />
+    <Compile Include="MappingModel\Output\HbmHibernateMappingWriterTester.cs" />
+    <Compile Include="MappingModel\Output\HbmIdGeneratorWriterTester.cs" />
+    <Compile Include="MappingModel\Output\HbmManyToOneWriterTester.cs" />
+    <Compile Include="MappingModel\Output\HbmOneToManyWriterTester.cs" />
+    <Compile Include="MappingModel\Output\HbmPropertyWriterTester.cs" />
+    <Compile Include="MappingModel\Output\HbmSetWriterTester.cs" />
+    <Compile Include="MappingModel\Output\HbmTestHelper.cs" />
+    <Compile Include="MappingModel\PropertyMappingTester.cs" />
+    <Compile Include="ReflectionHelperTester.cs" />
+    <Compile Include="Xml\MappingXmlTestHelper.cs" />
+    <Compile Include="Xml\MappingXmlValidatorTester.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Xml\MappingXmlSerializerTester.cs" />
+    <Compile Include="SpecificationExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FluentNHibernate.BackwardCompatibility\FluentNHibernate.BackwardCompatibility.csproj">
+      <Project>{27E0F40C-5D2D-42FE-9DA6-3ACFFCAC3F73}</Project>
+      <Name>FluentNHibernate.BackwardCompatibility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FluentNHibernate\FluentNHibernate.csproj">
+      <Project>{529145D5-6CC3-4016-89B5-826563024AF1}</Project>
+      <Name>FluentNHibernate</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\tools\NHibernate\nhib2.1\NHibernate.ByteCode.Castle.dll">
+      <Link>NHibernate.ByteCode.Castle.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MappingModel\Identity\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
