@@ -73,9 +73,10 @@
     <Compile Include="DomainModel\Music.cs" />
     <Compile Include="FluentInterface\ClassMapTester.cs" />
     <Compile Include="FluentInterface\DiscriminatorPartTester.cs" />
-    <Compile Include="FluentInterface\EmployeesTester.cs" />
-    <Compile Include="FluentInterface\IntegrationTestHelper.cs" />
-    <Compile Include="FluentInterface\MusicMappingTester.cs" />
+    <Compile Include="FluentInterface\IntegrationTests\EmployeesTester.cs" />
+    <Compile Include="FluentInterface\IntegrationTests\FieldMappingTester.cs" />
+    <Compile Include="FluentInterface\IntegrationTests\IntegrationTestHelper.cs" />
+    <Compile Include="FluentInterface\IntegrationTests\MusicMappingTester.cs" />
     <Compile Include="FluentInterface\PropertyMapTester.cs" />
     <Compile Include="FluentInterface\SubclassPartTester.cs" />
     <Compile Include="MappingModel\AttributeStoreTester.cs" />

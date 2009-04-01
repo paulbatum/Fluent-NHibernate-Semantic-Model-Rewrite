@@ -5,7 +5,7 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
 
-namespace FluentNHibernate.Testing.FluentInterface
+namespace FluentNHibernate.Testing.FluentInterface.IntegrationTests
 {
     public class IntegrationTestHelper
     {

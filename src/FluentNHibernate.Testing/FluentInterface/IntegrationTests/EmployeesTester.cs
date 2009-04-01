@@ -9,7 +9,7 @@ using NUnit.Framework;
 using FluentNHibernate.MappingModel;
 using FluentNHibernate.MappingModel.Identity;
 
-namespace FluentNHibernate.Testing.FluentInterface
+namespace FluentNHibernate.Testing.FluentInterface.IntegrationTests
 {
     public abstract class EmployeesTestBase
     {
@@ -76,10 +76,10 @@ namespace FluentNHibernate.Testing.FluentInterface
                         c.Map(x => x.Currency).ColumnName("SalaryCurrency");
                     }));
                 JoinedSubClass<CasualEmployee>("CasualEmployeeID", casualMap => casualMap.Component(x => x.HourlyWage, c =>
-                   {
-                       c.Map(x => x.Amount).ColumnName("HourlyWage");
-                       c.Map(x => x.Currency).ColumnName("HourlyWageCurrency");
-                   }));
+                    {
+                        c.Map(x => x.Amount).ColumnName("HourlyWage");
+                        c.Map(x => x.Currency).ColumnName("HourlyWageCurrency");
+                    }));
             }
         }
     }

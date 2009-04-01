@@ -1,19 +1,14 @@
-using System;
 using System.Linq;
 using FluentNHibernate.FluentInterface;
-using FluentNHibernate.Cfg;
 using FluentNHibernate.MappingModel.Collections;
-using FluentNHibernate.MappingModel.Identity;
 using FluentNHibernate.Reflection;
 using FluentNHibernate.Testing.DomainModel;
 using FluentNHibernate.Testing.MappingModel;
-using NHibernate.Cfg;
-using NHibernate.Tool.hbm2ddl;
 using NUnit.Framework;
 using FluentNHibernate.MappingModel;
 using FluentNHibernate.MappingModel.Conventions;
 
-namespace FluentNHibernate.Testing.FluentInterface
+namespace FluentNHibernate.Testing.FluentInterface.IntegrationTests
 {
     [TestFixture]
     public class MusicMappingTester
@@ -159,22 +154,22 @@ namespace FluentNHibernate.Testing.FluentInterface
             integrationHelper.PersistenceModel.Add(new TagMap());
 
             integrationHelper.Execute(session =>
-            {
-                var melodicDeath = new Tag { Description = "Melodic Death Metal" };
-                session.Save(melodicDeath);
+                {
+                    var melodicDeath = new Tag { Description = "Melodic Death Metal" };
+                    session.Save(melodicDeath);
 
-                var inflames = new Artist {Name = "In Flames"};
-                session.Save(inflames);
+                    var inflames = new Artist {Name = "In Flames"};
+                    session.Save(inflames);
 
-                var whoracle = new Album {Title = "Whoracle"};
-                whoracle.Tags.Add(melodicDeath);
-                whoracle.Artist = inflames;
-                session.Save(whoracle);
+                    var whoracle = new Album {Title = "Whoracle"};
+                    whoracle.Tags.Add(melodicDeath);
+                    whoracle.Artist = inflames;
+                    session.Save(whoracle);
 
-                var jotun = new Track {Name = "Jotun"};
-                jotun.Album = whoracle;
-                session.Save(jotun);
-            });
+                    var jotun = new Track {Name = "Jotun"};
+                    jotun.Album = whoracle;
+                    session.Save(jotun);
+                });
         }
 
     }
