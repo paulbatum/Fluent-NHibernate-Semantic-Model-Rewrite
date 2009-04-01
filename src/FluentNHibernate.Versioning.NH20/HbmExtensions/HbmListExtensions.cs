@@ -18,6 +18,11 @@ namespace FluentNHibernate.Versioning.HbmExtensions
         {
             hbmList.Item2 = contentsHbm;
         }
+
+        public static void SetIndex(this HbmList hbmList, HbmIndex indexHbm)
+        {
+            hbmList.Item1 = indexHbm;
+        }
     }
 
 }
