@@ -5,14 +5,13 @@ using FluentNHibernate.MappingModel.Collections;
 
 namespace FluentNHibernate.MappingModel.Collections
 {
-    public abstract class CollectionMappingBase : MappingBase, ICollectionMapping
+    public abstract class CollectionMappingBase : MapsMemberBase, ICollectionMapping
     {
         private readonly AttributeStore<ICollectionMapping> _attributes;
         public KeyMapping Key { get; set; }
         public ICollectionContentsMapping Contents { get; set; }
-        public MemberInfo MemberInfo { get; set; }
 
-        public CollectionMappingBase(AttributeStore underlyingStore)
+        protected CollectionMappingBase(AttributeStore underlyingStore) : base(underlyingStore)
         {
             _attributes = new AttributeStore<ICollectionMapping>(underlyingStore);
         }

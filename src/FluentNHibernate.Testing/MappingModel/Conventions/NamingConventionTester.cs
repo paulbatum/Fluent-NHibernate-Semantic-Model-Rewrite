@@ -52,55 +52,56 @@ namespace FluentNHibernate.Testing.MappingModel.Conventions
         public void Should_apply_to_property_mapping()
         {
             var propertyInfo = ReflectionHelper.GetMember((Album a) => a.Title);
-            var propertyMapping = new PropertyMapping {MemberInfo = propertyInfo};
+            var propertyMapping = new PropertyMapping();
+            propertyMapping.BindToMember(propertyInfo);
 
             _namingConvention.ProcessProperty(propertyMapping);
 
-            propertyMapping.Name.ShouldEqual(propertyMapping.MemberInfo.Name);
+            propertyMapping.Name.ShouldEqual(propertyMapping.MappedMember.Name);
         }
 
         [Test]
         public void Should_apply_to_collection_mapping()
         {
-            var propertyInfo = ReflectionHelper.GetMember((Album a) => a.Tracks);
-            var bagMapping = new BagMapping { MemberInfo = propertyInfo };
+            var bagMapping = new BagMapping();
+            bagMapping.BindToMember(ReflectionHelper.GetMember((Album a) => a.Tracks));
 
             _namingConvention.ProcessBag(bagMapping);
 
-            bagMapping.Name.ShouldEqual(bagMapping.MemberInfo.Name);
+            bagMapping.Name.ShouldEqual(bagMapping.MappedMember.Name);
         }
 
         [Test]
         public void Should_apply_to_id_mapping()
         {
-            var propertyInfo = ReflectionHelper.GetMember((Album a) => a.ID);
-            var idMapping = new IdMapping {MemberInfo = propertyInfo};
+            var idMapping = new IdMapping();
+            idMapping.BindToMember(ReflectionHelper.GetMember((Album a) => a.ID));
 
             _namingConvention.ProcessId(idMapping);
 
-            idMapping.Name.ShouldEqual(idMapping.MemberInfo.Name);
+            idMapping.Name.ShouldEqual(idMapping.MappedMember.Name);
         }
 
         [Test]
         public void Should_apply_to_column_mapping()
         {
             var propertyInfo = ReflectionHelper.GetMember((Album a) => a.ID);
-            var columnMapping = new ColumnMapping { MemberInfo = propertyInfo };
+            var columnMapping = new ColumnMapping() { MappedMember = propertyInfo };
 
             _namingConvention.ProcessColumn(columnMapping);
 
-            columnMapping.Name.ShouldEqual(columnMapping.MemberInfo.Name);
+            columnMapping.Name.ShouldEqual(columnMapping.MappedMember.Name);
         }
 
         [Test]
         public void Should_apply_to_many_to_one_mapping()
         {
-            var propertyInfo = ReflectionHelper.GetMember((Album a) => a.Artist);
-            var manyToOneMapping = new ManyToOneMapping { MemberInfo = propertyInfo };
-
+            var manyToOneMapping = new ManyToOneMapping();
+            manyToOneMapping.BindToMember(ReflectionHelper.GetMember((Album a) => a.Artist));
+            
             _namingConvention.ProcessManyToOne(manyToOneMapping);
 
-            manyToOneMapping.Name.ShouldEqual(manyToOneMapping.MemberInfo.Name);
+            manyToOneMapping.Name.ShouldEqual(manyToOneMapping.MappedMember.Name);
         }
 
         [Test]
@@ -147,7 +148,8 @@ namespace FluentNHibernate.Testing.MappingModel.Conventions
         public void Should_apply_to_components()
         {
             var propertyInfo = ReflectionHelper.GetMember((SalaryEmployee e) => e.Salary);
-            var componentMapping = new ComponentMapping {MemberInfo = propertyInfo};
+            var componentMapping = new ComponentMapping();
+            componentMapping.BindToMember(propertyInfo);
 
             _namingConvention.ProcessComponent(componentMapping);
 

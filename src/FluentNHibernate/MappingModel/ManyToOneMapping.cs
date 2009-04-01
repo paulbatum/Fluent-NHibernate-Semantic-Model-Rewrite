@@ -4,21 +4,24 @@ using NHibernate.Cfg.MappingSchema;
 
 namespace FluentNHibernate.MappingModel
 {
-    public class ManyToOneMapping : MappingBase, INameable, IMapsMember
+    public class ManyToOneMapping : MapsMemberBase, INameable
     {
         private readonly AttributeStore<ManyToOneMapping> _attributes;
 
         public ManyToOneMapping()
+            : this(new AttributeStore())
+        { }
+
+        protected ManyToOneMapping(AttributeStore store)
+            : base(store)
         {
-            _attributes = new AttributeStore<ManyToOneMapping>();
+            _attributes = new AttributeStore<ManyToOneMapping>(store);
         }
 
         public override void AcceptVisitor(IMappingModelVisitor visitor)
         {
             visitor.ProcessManyToOne(this);
         }
-
-        public MemberInfo MemberInfo { get; set; }
 
         public bool IsNameSpecified
         {
@@ -41,6 +44,6 @@ namespace FluentNHibernate.MappingModel
         {
             get { return _attributes; }
         }
-        
+
     }
 }

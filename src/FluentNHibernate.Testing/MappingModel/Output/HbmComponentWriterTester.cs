@@ -107,6 +107,26 @@ namespace FluentNHibernate.Testing.MappingModel.Output
                 .Element("component").Exists().HasAttribute("name", "Grandchild");
         }
 
+        [Test]
+        public void Should_write_the_specified_access_type()
+        {
+            var component = new ComponentMapping();
+            component.MemberAccess = MemberAccess.Create(AccessStrategy.Field, NamingStrategy.CamelCase);
+
+            _componentWriter.VerifyXml(component)
+                .HasAttribute("access", "field.camelcase");
+        }
+
+        [Test]
+        public void Should_not_write_the_default_access_type()
+        {
+            var component = new ComponentMapping();
+
+            _componentWriter.VerifyXml(component)
+                .DoesntHaveAttribute("access");
+        }
+
+
        
 
     }

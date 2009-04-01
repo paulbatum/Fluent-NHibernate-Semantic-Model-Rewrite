@@ -5,23 +5,29 @@ using System.Collections.Generic;
 
 namespace FluentNHibernate.MappingModel.Identity
 {
-    public class IdMapping : MappingBase, IIdentityMapping, INameable, IMapsMember
+    public class IdMapping : MapsMemberBase, IIdentityMapping, INameable
     {
         private readonly AttributeStore<IdMapping> _attributes;
         private readonly IList<ColumnMapping> _columns;
+        public IdGeneratorMapping Generator { get; set; }
 
         public IdMapping()
+            : this(null)
+        { }
+
+        public IdMapping(ColumnMapping columnMapping)
+            : this(new AttributeStore(), columnMapping)
         {
-            _attributes = new AttributeStore<IdMapping>();
+        }
+
+        protected IdMapping(AttributeStore store, ColumnMapping columnMapping) : base(store)
+        {            
+            _attributes = new AttributeStore<IdMapping>(store);
             _columns = new List<ColumnMapping>();
-        }
 
-        public IdMapping(ColumnMapping columnMapping) : this()
-        {
-            AddIdColumn(columnMapping);
+            if(columnMapping != null)
+                AddIdColumn(columnMapping);            
         }
-
-        public IdGeneratorMapping Generator { get; set; }
 
         public void AddIdColumn(ColumnMapping column)
         {
@@ -32,8 +38,6 @@ namespace FluentNHibernate.MappingModel.Identity
         {
             get { return _columns; }
         }
-
-        public MemberInfo MemberInfo { get; set; }
 
         public override void AcceptVisitor(IMappingModelVisitor visitor)
         {
@@ -50,6 +54,11 @@ namespace FluentNHibernate.MappingModel.Identity
         {
             get { return Attributes.IsSpecified(x => x.Name); }
         }
+        
+        public AttributeStore<IdMapping> Attributes
+        {
+            get { return _attributes; }
+        }
 
         public string Name
         {
@@ -57,10 +66,6 @@ namespace FluentNHibernate.MappingModel.Identity
             set { _attributes.Set(x => x.Name, value); }
         }
 
-        public AttributeStore<IdMapping> Attributes
-        {
-            get { return _attributes; }
-        }
         
     }
 }

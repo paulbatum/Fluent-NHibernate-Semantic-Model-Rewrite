@@ -7,16 +7,19 @@ using System.Reflection;
 
 namespace FluentNHibernate.MappingModel
 {
-    public class ComponentMapping : IMappingBase, IHasMappedMembers, IMapsMember
+    public class ComponentMapping : MapsMemberBase, IHasMappedMembers
     {
         private readonly AttributeStore<ComponentMapping> _attributes;
         private readonly MappedMembers _mappedMembers;
-        public MemberInfo MemberInfo { get; set; }
         public Type ComponentType { get; set; }
 
         public ComponentMapping()
+            : this(new AttributeStore())
+        { }
+
+        protected ComponentMapping(AttributeStore store) : base(store)
         {
-            _attributes = new AttributeStore<ComponentMapping>();
+            _attributes = new AttributeStore<ComponentMapping>(store);
             _mappedMembers = new MappedMembers();
         }
 
@@ -37,7 +40,7 @@ namespace FluentNHibernate.MappingModel
             set { _attributes.Set(x => x.ClassName, value); }
         }
 
-        public virtual void AcceptVisitor(IMappingModelVisitor visitor)
+        public override void AcceptVisitor(IMappingModelVisitor visitor)
         {
             visitor.ProcessComponent(this);            
             _mappedMembers.AcceptVisitor(visitor);

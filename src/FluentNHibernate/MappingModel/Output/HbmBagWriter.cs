@@ -35,6 +35,9 @@ namespace FluentNHibernate.MappingModel.Output
             _hbm = new HbmBag();
             _hbm.name = bagMapping.Name;
 
+            if (bagMapping.Attributes.IsSpecified(x => x.MemberAccess))
+                _hbm.access = bagMapping.MemberAccess.ToString();
+
             if(bagMapping.Attributes.IsSpecified(x => x.OrderBy))
                 _hbm.orderby = bagMapping.OrderBy;
 

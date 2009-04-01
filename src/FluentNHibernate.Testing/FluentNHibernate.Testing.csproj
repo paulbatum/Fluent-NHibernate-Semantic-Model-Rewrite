@@ -83,8 +83,10 @@
     <Compile Include="MappingModel\ClassMappingTester.cs" />
     <Compile Include="MappingModel\Collections\OneToManyMappingTester.cs" />
     <Compile Include="MappingModel\Conventions\NamingConventionTester.cs" />
+    <Compile Include="MappingModel\IdMappingTester.cs" />
     <Compile Include="MappingModel\HibernateMappingTester.cs" />
     <Compile Include="MappingModel\MappingTestingExtensions.cs" />
+    <Compile Include="MappingModel\MemberAccessTester.cs" />
     <Compile Include="MappingModel\Output\HbmBagWriterTester.cs" />
     <Compile Include="MappingModel\Output\HbmClassWriterTester.cs" />
     <Compile Include="MappingModel\Output\HbmCollectionContentsWriterTester.cs" />
@@ -105,6 +107,7 @@
     <Compile Include="MappingModel\Output\HbmSetWriterTester.cs" />
     <Compile Include="MappingModel\Output\HbmSubclassWriterTester.cs" />
     <Compile Include="MappingModel\Output\HbmTestHelper.cs" />
+    <Compile Include="MappingModel\PropertyMappingTester.cs" />
     <Compile Include="ReflectionHelperTester.cs" />
     <Compile Include="Xml\MappingXmlTestHelper.cs" />
     <Compile Include="Xml\MappingXmlValidatorTester.cs" />

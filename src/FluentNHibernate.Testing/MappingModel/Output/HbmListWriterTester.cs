@@ -12,13 +12,13 @@ namespace FluentNHibernate.Testing.MappingModel.Output
     public class HbmListWriterTester
     {
         private RhinoAutoMocker<HbmListWriter> _mocker;
-        private HbmListWriter _listWriter;
+        private HbmListWriter _writer;
 
         [SetUp]
         public void SetUp()
         {
             _mocker = new RhinoAutoMocker<HbmListWriter>();
-            _listWriter = _mocker.ClassUnderTest;
+            _writer = _mocker.ClassUnderTest;
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace FluentNHibernate.Testing.MappingModel.Output
             _mocker.Get<IHbmWriter<IndexMapping>>()
                .Expect(x => x.Write(list.Index)).Return(new HbmIndex());
 
-            _listWriter.ShouldGenerateValidOutput(list);
+            _writer.ShouldGenerateValidOutput(list);
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace FluentNHibernate.Testing.MappingModel.Output
             testHelper.Check(x => x.IsInverse, true).MapsToAttribute("inverse");
             testHelper.Check(x => x.IsLazy, true).MapsToAttribute("lazy");
 
-            testHelper.VerifyAll(_listWriter);
+            testHelper.VerifyAll(_writer);
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace FluentNHibernate.Testing.MappingModel.Output
                 .Expect(x => x.Write(list.Contents))
                 .Return(new HbmOneToMany());
 
-            _listWriter.VerifyXml(list)
+            _writer.VerifyXml(list)
                 .Element("one-to-many").Exists();
         }
 
@@ -71,7 +71,7 @@ namespace FluentNHibernate.Testing.MappingModel.Output
                 .Expect(x => x.Write(list.Key))
                 .Return(new HbmKey());
 
-            _listWriter.VerifyXml(list)
+            _writer.VerifyXml(list)
                 .Element("key").Exists();
         }
 
@@ -84,8 +84,27 @@ namespace FluentNHibernate.Testing.MappingModel.Output
                 .Expect(x => x.Write(list.Index))
                 .Return(new HbmIndex());
 
-            _listWriter.VerifyXml(list)
+            _writer.VerifyXml(list)
                 .Element("index").Exists();
+        }
+
+        [Test]
+        public void Should_write_the_specified_access_type()
+        {
+            var list = new ListMapping();
+            list.MemberAccess = MemberAccess.Create(AccessStrategy.Field, NamingStrategy.CamelCase);
+
+            _writer.VerifyXml(list)
+                .HasAttribute("access", "field.camelcase");
+        }
+
+        [Test]
+        public void Should_not_write_the_default_access_type()
+        {
+            var list = new ListMapping();
+
+            _writer.VerifyXml(list)
+                .DoesntHaveAttribute("access");
         }
 
         

@@ -15,14 +15,14 @@ namespace FluentNHibernate.FluentInterface.AutoMap
             {
                 foreach (var column in (classMap.Id as IdMapping).Columns)
                 {
-                    if (column.MemberInfo == propertyInfo)
+                    if (column.MappedMember == propertyInfo)
                         return true;
                 }
             }
 
             foreach (var propertyMapping in classMap.Properties)
             {
-                if (propertyMapping.MemberInfo == propertyInfo)
+                if (propertyMapping.MappedMember == propertyInfo)
                     return true;
             }
 

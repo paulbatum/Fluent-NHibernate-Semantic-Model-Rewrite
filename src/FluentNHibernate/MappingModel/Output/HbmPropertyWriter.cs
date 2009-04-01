@@ -19,6 +19,9 @@ namespace FluentNHibernate.MappingModel.Output
             _hbm = new HbmProperty();
             _hbm.name = propertyMapping.Name;
 
+            if(propertyMapping.Attributes.IsSpecified(x => x.MemberAccess))
+                _hbm.access = propertyMapping.MemberAccess.ToString();
+
             if(propertyMapping.Attributes.IsSpecified(x => x.IsNotNullable))
                 _hbm.SetNotNull(propertyMapping.IsNotNullable);
 

@@ -75,12 +75,12 @@ namespace FluentNHibernate.Testing.FluentInterface.IntegrationTests
             ClassMapping mapping = artistMap.GetClassMapping();
 
             PropertyMapping prop = mapping.Properties.First();
-            prop.MemberInfo.ShouldNotBeNull();
+            prop.MappedMember.ShouldNotBeNull();
             prop.Length.ShouldEqual(50);
             prop.IsNotNullable.ShouldBeTrue();
 
             ICollectionMapping col = mapping.Collections.First();
-            col.MemberInfo.ShouldNotBeNull();
+            col.MappedMember.ShouldNotBeNull();
             col.ShouldBeOfType(typeof(SetMapping));
             col.IsInverse.ShouldBeTrue();
         }
@@ -92,21 +92,21 @@ namespace FluentNHibernate.Testing.FluentInterface.IntegrationTests
             ClassMapping mapping = albumMap.GetClassMapping();
 
             PropertyMapping prop = mapping.Properties.First();
-            prop.MemberInfo.ShouldNotBeNull();
+            prop.MappedMember.ShouldNotBeNull();
             prop.Length.ShouldEqual(50);
             prop.IsNotNullable.ShouldBeTrue();
 
             ManyToOneMapping reference = mapping.References.First();
-            reference.MemberInfo.ShouldEqual(ReflectionHelper.GetMember<Album>(x => x.Artist));
+            reference.MappedMember.ShouldEqual(ReflectionHelper.GetMember<Album>(x => x.Artist));
 
             ICollectionMapping tracks = mapping.Collections.First();
-            tracks.MemberInfo.ShouldNotBeNull();
+            tracks.MappedMember.ShouldNotBeNull();
             tracks.ShouldBeOfType(typeof(SetMapping));
             tracks.Contents.ShouldBeOfType(typeof(OneToManyMapping));
             tracks.IsInverse.ShouldBeTrue();
 
             ICollectionMapping tags = mapping.Collections.Skip(1).First();
-            tags.MemberInfo.ShouldNotBeNull();
+            tags.MappedMember.ShouldNotBeNull();
             tags.ShouldBeOfType(typeof (SetMapping));
             tags.Contents.ShouldBeOfType(typeof(ManyToManyMapping));            
         }
@@ -117,16 +117,16 @@ namespace FluentNHibernate.Testing.FluentInterface.IntegrationTests
             var trackMap = new TrackMap();
             ClassMapping mapping = trackMap.GetClassMapping();
 
-            PropertyMapping nameProp = mapping.Properties.Where(p => p.MemberInfo.Name == "Name").FirstOrDefault();
+            PropertyMapping nameProp = mapping.Properties.Where(p => p.MappedMember.Name == "Name").FirstOrDefault();
             nameProp.ShouldNotBeNull();
             nameProp.Length.ShouldEqual(50);
             nameProp.IsNotNullable.ShouldBeTrue();
 
-            PropertyMapping numberProp = mapping.Properties.Where(p => p.MemberInfo.Name == "TrackNumber").FirstOrDefault();
+            PropertyMapping numberProp = mapping.Properties.Where(p => p.MappedMember.Name == "TrackNumber").FirstOrDefault();
             numberProp.ShouldNotBeNull();
 
             ManyToOneMapping reference = mapping.References.First();
-            reference.MemberInfo.ShouldEqual(ReflectionHelper.GetMember<Track>(x => x.Album));
+            reference.MappedMember.ShouldEqual(ReflectionHelper.GetMember<Track>(x => x.Album));
         }
 
         [Test]

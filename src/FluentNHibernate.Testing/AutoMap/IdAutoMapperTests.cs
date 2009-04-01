@@ -27,7 +27,7 @@ namespace FluentNHibernate.Testing.AutoMap
             mapper.Map(classMap);
 
             var id = classMap.Id as IdMapping;
-            Assert.AreEqual(id.MemberInfo.Name, "Id");
+            Assert.AreEqual(id.MappedMember.Name, "Id");
         }
 
         [Test]

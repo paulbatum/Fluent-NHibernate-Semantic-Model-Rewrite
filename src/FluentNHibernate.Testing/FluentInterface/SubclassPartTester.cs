@@ -20,7 +20,7 @@ namespace FluentNHibernate.Testing.FluentInterface
 
             var salaryProperty = mapping.Properties.FirstOrDefault();
             salaryProperty.ShouldNotBeNull();
-            salaryProperty.MemberInfo.ShouldEqual(ReflectionHelper.GetMember<SalaryEmployee>(x => x.Salary));
+            salaryProperty.MappedMember.ShouldEqual(ReflectionHelper.GetMember<SalaryEmployee>(x => x.Salary));
         }
     }
 }

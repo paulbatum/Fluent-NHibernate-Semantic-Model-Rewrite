@@ -21,7 +21,8 @@ namespace FluentNHibernate.FluentInterface
         public PropertyMap Map(Expression<Func<T, object>> expression)
         {
             MemberInfo info = ReflectionHelper.GetMember(expression);
-            var propertyMapping = new PropertyMapping { MemberInfo = info };
+            var propertyMapping = new PropertyMapping();
+            propertyMapping.BindToMember(info);
 
             _hasMappedMembers.AddProperty(propertyMapping);
             return new PropertyMap(propertyMapping);
@@ -29,7 +30,8 @@ namespace FluentNHibernate.FluentInterface
 
         public ComponentMap<COMPONENT_TYPE> Component<COMPONENT_TYPE>(Expression<Func<T, COMPONENT_TYPE>> expression, Action<ComponentMap<COMPONENT_TYPE>> action)
         {
-            var componentMapping = new ComponentMapping {MemberInfo = ReflectionHelper.GetMember(expression)};
+            var componentMapping = new ComponentMapping();
+            componentMapping.BindToMember(ReflectionHelper.GetMember(expression));
             _hasMappedMembers.AddComponent(componentMapping);
 
             var map = new ComponentMap<COMPONENT_TYPE>(componentMapping);

@@ -8,25 +8,34 @@ using NHibernate.Cfg.MappingSchema;
 using NUnit.Framework;
 using FluentNHibernate.MappingModel;
 using Rhino.Mocks;
+using StructureMap.AutoMocking;
 
 namespace FluentNHibernate.Testing.MappingModel.Output
 {
     [TestFixture]
     public class HbmSetWriterTester
     {
+        private RhinoAutoMocker<HbmSetWriter> _mocker;
+        private HbmSetWriter _writer;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _mocker = new RhinoAutoMocker<HbmSetWriter>();
+            _writer = _mocker.ClassUnderTest;
+        }
+
         [Test]
         public void Should_produce_valid_hbm()
         {
             var set = new SetMapping { Name = "set1", Contents = new OneToManyMapping(), Key = new KeyMapping() };
 
-            var contentsWriter = MockRepository.GenerateStub<IHbmWriter<ICollectionContentsMapping>>();
-            contentsWriter.Expect(x => x.Write(set.Contents)).Return(new HbmOneToMany { @class = "class1" });
-            var keyWriter = MockRepository.GenerateStub<IHbmWriter<KeyMapping>>();
-            keyWriter.Expect(x => x.Write(set.Key)).Return(new HbmKey());
+            _mocker.Get<IHbmWriter<ICollectionContentsMapping>>()
+                .Expect(x => x.Write(set.Contents)).Return(new HbmOneToMany { @class = "class1" });
+            _mocker.Get<IHbmWriter<KeyMapping>>()
+                .Expect(x => x.Write(set.Key)).Return(new HbmKey());
 
-            var writer = new HbmSetWriter(contentsWriter, keyWriter);
-
-            writer.ShouldGenerateValidOutput(set);
+            _writer.ShouldGenerateValidOutput(set);
         }
 
         [Test]
@@ -39,8 +48,26 @@ namespace FluentNHibernate.Testing.MappingModel.Output
             testHelper.Check(x => x.IsInverse, true).MapsToAttribute("inverse");
             testHelper.Check(x => x.IsLazy, true).MapsToAttribute("lazy");
 
-            var writer = new HbmSetWriter(null, null);
-            testHelper.VerifyAll(writer);
+            testHelper.VerifyAll(_writer);
+        }
+
+        [Test]
+        public void Should_write_the_specified_access_type()
+        {
+            var set = new SetMapping();
+            set.MemberAccess = MemberAccess.Create(AccessStrategy.Field, NamingStrategy.CamelCase);
+
+            _writer.VerifyXml(set)
+                .HasAttribute("access", "field.camelcase");
+        }
+
+        [Test]
+        public void Should_not_write_the_default_access_type()
+        {
+            var set = new SetMapping();
+
+            _writer.VerifyXml(set)
+                .DoesntHaveAttribute("access");
         }
     }
 }

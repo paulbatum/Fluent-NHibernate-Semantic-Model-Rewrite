@@ -11,11 +11,12 @@ namespace FluentNHibernate.FluentInterface.AutoMap
                 if (!classMap.HasMappedProperty(property))
                 {
                     if (property.PropertyType.Namespace == "System")
-                        classMap.AddProperty(new PropertyMapping
-                            {
-                                MemberInfo = property,
-                                Name = property.Name,
-                            });
+                    {
+                        var propMapping = new PropertyMapping {Name = property.Name};
+                        propMapping.BindToMember(property);
+
+                        classMap.AddProperty(propMapping);
+                    }
                 }
             }
         }

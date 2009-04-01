@@ -37,6 +37,9 @@ namespace FluentNHibernate.MappingModel.Output
             _hbm = new HbmList();
             _hbm.name = listMapping.Name;
 
+            if (listMapping.Attributes.IsSpecified(x => x.MemberAccess))
+                _hbm.access = listMapping.MemberAccess.ToString();
+
             if (listMapping.Attributes.IsSpecified(x => x.IsInverse))
                 _hbm.inverse = listMapping.IsInverse;
 

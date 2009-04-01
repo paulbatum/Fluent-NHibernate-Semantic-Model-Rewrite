@@ -35,6 +35,9 @@ namespace FluentNHibernate.MappingModel.Output
             _hbm = new HbmComponent();
             _hbm.name = componentMapping.PropertyName;
 
+            if (componentMapping.Attributes.IsSpecified(x => x.MemberAccess))
+                _hbm.access = componentMapping.MemberAccess.ToString();
+
             if(componentMapping.Attributes.IsSpecified(x => x.ClassName))
                 _hbm.@class = componentMapping.ClassName;
 

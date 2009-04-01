@@ -4,6 +4,8 @@ namespace FluentNHibernate.MappingModel
 {
     public interface IMapsMember
     {
-        MemberInfo MemberInfo { get; set; }
+        MemberInfo MappedMember { get; }
+        MemberAccess MemberAccess { get; set; }
+        void BindToMember(MemberInfo member);
     }
 }

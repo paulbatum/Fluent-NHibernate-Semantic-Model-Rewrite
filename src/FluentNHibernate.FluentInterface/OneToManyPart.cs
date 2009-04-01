@@ -42,7 +42,7 @@ namespace FluentNHibernate.FluentInterface
             var collection = _collectionBuilder();       
             _attributes.CopyTo(collection.Attributes);
 
-            collection.MemberInfo = _info;            
+            collection.BindToMember(_info);
             collection.Key = new KeyMapping();
             collection.Contents = new OneToManyMapping {ChildType = typeof (CHILD)};
 

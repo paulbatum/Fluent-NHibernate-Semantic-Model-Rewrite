@@ -8,21 +8,31 @@ using NUnit.Framework;
 using FluentNHibernate.MappingModel.Identity;
 using NHibernate.Cfg.MappingSchema;
 using Rhino.Mocks;
+using StructureMap.AutoMocking;
 
 namespace FluentNHibernate.Testing.MappingModel.Output
 {
     [TestFixture]
     public class HbmIdWriterTester
     {
+        private RhinoAutoMocker<HbmIdWriter> _mocker;
+        private HbmIdWriter _writer;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _mocker = new RhinoAutoMocker<HbmIdWriter>();
+            _writer = _mocker.ClassUnderTest;
+        }
+
         [Test]
         public void Should_produce_valid_hbm()
         {
             var id = new IdMapping { Generator = new IdGeneratorMapping()};
-            var generatorWriter = MockRepository.GenerateStub<IHbmWriter<IdGeneratorMapping>>();
-            generatorWriter.Expect(x => x.Write(id.Generator)).Return(new HbmGenerator { @class = "native"});
-            var writer = new HbmIdWriter(null, generatorWriter);
+            _mocker.Get<IHbmWriter<IdGeneratorMapping>>()
+                .Expect(x => x.Write(id.Generator)).Return(new HbmGenerator { @class = "native"});
 
-            writer.ShouldGenerateValidOutput(id);
+            _writer.ShouldGenerateValidOutput(id);
         }
 
         [Test]
@@ -31,8 +41,7 @@ namespace FluentNHibernate.Testing.MappingModel.Output
             var testHelper = new HbmTestHelper<IdMapping>();
             testHelper.Check(x => x.Name, "id1").MapsToAttribute("name");
 
-            var writer = new HbmIdWriter(null, null);
-            testHelper.VerifyAll(writer);
+            testHelper.VerifyAll(_writer);
         }
 
         [Test]
@@ -40,11 +49,10 @@ namespace FluentNHibernate.Testing.MappingModel.Output
         {
             var idMapping = new IdMapping {Generator = new IdGeneratorMapping()};
 
-            var generatorWriter = MockRepository.GenerateStub<IHbmWriter<IdGeneratorMapping>>();
-            generatorWriter.Expect(x => x.Write(idMapping.Generator)).Return(new HbmGenerator());
-            var writer = new HbmIdWriter(null, generatorWriter);
+            _mocker.Get<IHbmWriter<IdGeneratorMapping>>()
+                .Expect(x => x.Write(idMapping.Generator)).Return(new HbmGenerator());
 
-            writer.VerifyXml(idMapping)
+            _writer.VerifyXml(idMapping)
                 .Element("generator").Exists();
         }
 
@@ -53,13 +61,30 @@ namespace FluentNHibernate.Testing.MappingModel.Output
         {
             var idMapping = new IdMapping(new ColumnMapping());
 
-            var columnWriter = MockRepository.GenerateStub<IHbmWriter<ColumnMapping>>();
-            columnWriter.Expect(x => x.Write(idMapping.Columns.First())).Return(new HbmColumn());
-            var writer = new HbmIdWriter(columnWriter, null);
+            _mocker.Get<IHbmWriter<ColumnMapping>>()
+                .Expect(x => x.Write(idMapping.Columns.First())).Return(new HbmColumn());
 
-            writer.VerifyXml(idMapping)
+            _writer.VerifyXml(idMapping)
                 .Element("column").Exists();
+        }
 
+        [Test]
+        public void Should_write_the_specified_access_type()
+        {
+            var idMapping = new IdMapping();
+            idMapping.MemberAccess = MemberAccess.Create(AccessStrategy.Field, NamingStrategy.CamelCase);
+
+            _writer.VerifyXml(idMapping)
+                .HasAttribute("access", "field.camelcase");
+        }
+
+        [Test]
+        public void Should_not_write_the_default_access_type()
+        {
+            var idMapping = new IdMapping();
+
+            _writer.VerifyXml(idMapping)
+                .DoesntHaveAttribute("access");
         }
 
     }

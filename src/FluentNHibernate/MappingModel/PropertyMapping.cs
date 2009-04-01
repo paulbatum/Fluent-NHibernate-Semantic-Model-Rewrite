@@ -4,21 +4,23 @@ using System.Reflection;
 
 namespace FluentNHibernate.MappingModel
 {
-    public class PropertyMapping : MappingBase, INameable, IMapsMember
+    public class PropertyMapping : MapsMemberBase, INameable
     {
-        private readonly AttributeStore<PropertyMapping> _attributes;        
+        private readonly AttributeStore<PropertyMapping> _attributes;
+        
+        public PropertyMapping() 
+            : this(new AttributeStore())
+        { }
 
-        public PropertyMapping()
+        protected PropertyMapping(AttributeStore store) : base(store)
         {
-            _attributes = new AttributeStore<PropertyMapping>();   
-        }        
+            _attributes = new AttributeStore<PropertyMapping>(store);
+        }
        
         public override void AcceptVisitor(IMappingModelVisitor visitor)
         {
             visitor.ProcessProperty(this);
         }
-
-        public MemberInfo MemberInfo { get; set; }
 
         public AttributeStore<PropertyMapping> Attributes
         {

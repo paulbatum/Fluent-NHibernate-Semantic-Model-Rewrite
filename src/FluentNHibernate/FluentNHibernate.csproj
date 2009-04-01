@@ -61,6 +61,7 @@
     <Compile Include="Cfg\PostgreSQLConfiguration.cs" />
     <Compile Include="Cfg\SQLiteConfiguration.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="MappingModel\AccessStrategyBuilder.cs" />
     <Compile Include="MappingModel\AttributeStore.cs" />
     <Compile Include="MappingModel\ClassMappingBase.cs" />
     <Compile Include="MappingModel\Collections\CollectionMappingBase.cs" />
@@ -79,6 +80,8 @@
     <Compile Include="MappingModel\IHasMappedMembers.cs" />
     <Compile Include="MappingModel\IMapsMember.cs" />
     <Compile Include="MappingModel\MappedMembers.cs" />
+    <Compile Include="MappingModel\MapsMemberBase.cs" />
+    <Compile Include="MappingModel\MemberAccess.cs" />
     <Compile Include="MappingModel\NullMappingModelVisitor.cs" />
     <Compile Include="MappingModel\INameable.cs" />
     <Compile Include="MappingModel\ISubclassMapping.cs" />

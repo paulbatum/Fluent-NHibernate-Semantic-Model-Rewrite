@@ -19,10 +19,11 @@ namespace FluentNHibernate.MappingModel.Output
             _hbm = new HbmManyToOne();
             _hbm.name = manyToOneMapping.Name;
 
+            if (manyToOneMapping.Attributes.IsSpecified(x => x.MemberAccess))
+                _hbm.access = manyToOneMapping.MemberAccess.ToString();
+
             if(manyToOneMapping.Attributes.IsSpecified(x => x.IsNotNullable))
-            {
                 _hbm.SetNotNull(manyToOneMapping.IsNotNullable);
-            }
         }
     }
 }

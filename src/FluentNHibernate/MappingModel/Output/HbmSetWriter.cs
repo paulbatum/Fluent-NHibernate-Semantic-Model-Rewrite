@@ -33,6 +33,9 @@ namespace FluentNHibernate.MappingModel.Output
             _hbm = new HbmSet();
             _hbm.name = setMapping.Name;
 
+            if (setMapping.Attributes.IsSpecified(x => x.MemberAccess))
+                _hbm.access = setMapping.MemberAccess.ToString();
+
             if(setMapping.Attributes.IsSpecified(x => x.OrderBy))
                 _hbm.orderby = setMapping.OrderBy;
 
@@ -40,9 +43,7 @@ namespace FluentNHibernate.MappingModel.Output
                 _hbm.inverse = setMapping.IsInverse;
 
             if (setMapping.Attributes.IsSpecified(x => x.IsLazy))
-            {
                 _hbm.SetLazy(setMapping.IsLazy);
-            }
         }
 
         public override void Visit(ICollectionContentsMapping contentsMapping)

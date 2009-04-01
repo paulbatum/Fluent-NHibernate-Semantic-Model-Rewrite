@@ -31,6 +31,9 @@ namespace FluentNHibernate.MappingModel.Output
         {
             _hbm = new HbmId();
 
+            if (idMapping.Attributes.IsSpecified(x => x.MemberAccess))
+                _hbm.access = idMapping.MemberAccess.ToString();
+
             if(idMapping.Attributes.IsSpecified(x => x.Name))
                 _hbm.name = idMapping.Name;
         }

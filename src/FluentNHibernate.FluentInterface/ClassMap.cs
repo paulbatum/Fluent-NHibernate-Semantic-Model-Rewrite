@@ -42,11 +42,11 @@ namespace FluentNHibernate.FluentInterface
         {
             MemberInfo info = ReflectionHelper.GetMember(expression);
 
-            _classMapping.Id = new IdMapping(new ColumnMapping { MemberInfo = info })
-                                   {
-                                       MemberInfo = info,
-                                       Generator = IdGeneratorMapping.NativeGenerator
-                                   };
+            var idMapping = new IdMapping(new ColumnMapping { MappedMember = info })
+                                {Generator = IdGeneratorMapping.NativeGenerator};
+            idMapping.BindToMember(info);
+
+            _classMapping.Id = idMapping;
         }
 
         public OneToManyPart<T, CHILD> HasMany<CHILD>(Expression<Func<T, object>> expression)
@@ -69,9 +69,9 @@ namespace FluentNHibernate.FluentInterface
 
         public ManyToOnePart References(Expression<Func<T, object>> expression)
         {
-            MemberInfo info = ReflectionHelper.GetMember(expression);
+            var mapping = new ManyToOneMapping();
+            mapping.BindToMember(ReflectionHelper.GetMember(expression));
 
-            var mapping = new ManyToOneMapping { MemberInfo = info };
             _classMapping.AddReference(mapping);
             return new ManyToOnePart(mapping);
         }
