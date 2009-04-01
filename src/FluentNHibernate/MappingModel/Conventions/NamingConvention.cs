@@ -33,27 +33,27 @@ namespace FluentNHibernate.MappingModel.Conventions
 
         public override void ProcessProperty(PropertyMapping propertyMapping)
         {
-            Process(propertyMapping, propertyMapping.PropertyInfo);
+            Process(propertyMapping, propertyMapping.MemberInfo);
         }
 
         protected override void ProcessCollection(ICollectionMapping collectionMapping)
         {
-            Process(collectionMapping, collectionMapping.PropertyInfo);
+            Process(collectionMapping, collectionMapping.MemberInfo);
         }
 
         public override void ProcessId(Identity.IdMapping idMapping)
         {
-            Process(idMapping, idMapping.PropertyInfo);
+            Process(idMapping, idMapping.MemberInfo);
         }
 
         public override void ProcessColumn(ColumnMapping columnMapping)
         {
-            Process(columnMapping, columnMapping.PropertyInfo);
+            Process(columnMapping, columnMapping.MemberInfo);
         }
 
         public override void ProcessManyToOne(ManyToOneMapping manyToOneMapping)
         {
-            Process(manyToOneMapping, manyToOneMapping.PropertyInfo);
+            Process(manyToOneMapping, manyToOneMapping.MemberInfo);
         }
 
         public override void ProcessOneToMany(OneToManyMapping oneToManyMapping)
@@ -80,10 +80,10 @@ namespace FluentNHibernate.MappingModel.Conventions
         {
             if (!componentMapping.Attributes.IsSpecified(x => x.PropertyName))
             {
-                if(componentMapping.PropertyInfo == null)
+                if(componentMapping.MemberInfo == null)
                     throw new ConventionException("Cannot apply the naming convention. No member specified.", componentMapping);
 
-                componentMapping.PropertyName = DetermineNameFromMember(componentMapping.PropertyInfo);
+                componentMapping.PropertyName = DetermineNameFromMember(componentMapping.MemberInfo);
             }
         }
     }

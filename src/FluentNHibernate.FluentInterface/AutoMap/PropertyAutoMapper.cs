@@ -13,7 +13,7 @@ namespace FluentNHibernate.FluentInterface.AutoMap
                     if (property.PropertyType.Namespace == "System")
                         classMap.AddProperty(new PropertyMapping
                             {
-                                PropertyInfo = property,
+                                MemberInfo = property,
                                 Name = property.Name,
                             });
                 }

@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace FluentNHibernate.MappingModel
 {
-    public class PropertyMapping : MappingBase, INameable
+    public class PropertyMapping : MappingBase, INameable, IMapsMember
     {
         private readonly AttributeStore<PropertyMapping> _attributes;        
 
@@ -18,7 +18,7 @@ namespace FluentNHibernate.MappingModel
             visitor.ProcessProperty(this);
         }
 
-        public PropertyInfo PropertyInfo { get; set; }
+        public MemberInfo MemberInfo { get; set; }
 
         public AttributeStore<PropertyMapping> Attributes
         {

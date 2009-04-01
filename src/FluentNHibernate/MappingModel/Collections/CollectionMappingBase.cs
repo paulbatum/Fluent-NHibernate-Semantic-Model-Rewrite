@@ -10,7 +10,7 @@ namespace FluentNHibernate.MappingModel.Collections
         private readonly AttributeStore<ICollectionMapping> _attributes;
         public KeyMapping Key { get; set; }
         public ICollectionContentsMapping Contents { get; set; }
-        public PropertyInfo PropertyInfo { get; set; }
+        public MemberInfo MemberInfo { get; set; }
 
         public CollectionMappingBase(AttributeStore underlyingStore)
         {

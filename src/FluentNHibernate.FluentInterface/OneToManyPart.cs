@@ -7,12 +7,12 @@ namespace FluentNHibernate.FluentInterface
 {
     public class OneToManyPart<PARENT, CHILD> : IDeferredCollectionMapping
     {
-        private readonly PropertyInfo _info;
+        private readonly MemberInfo _info;
         private readonly AttributeStore<ICollectionMapping> _attributes;
 
         private Func<ICollectionMapping> _collectionBuilder;
 
-        public OneToManyPart(PropertyInfo info)
+        public OneToManyPart(MemberInfo info)
         {
             _info = info;
             _attributes = new AttributeStore<ICollectionMapping>();
@@ -42,7 +42,7 @@ namespace FluentNHibernate.FluentInterface
             var collection = _collectionBuilder();       
             _attributes.CopyTo(collection.Attributes);
 
-            collection.PropertyInfo = _info;            
+            collection.MemberInfo = _info;            
             collection.Key = new KeyMapping();
             collection.Contents = new OneToManyMapping {ChildType = typeof (CHILD)};
 

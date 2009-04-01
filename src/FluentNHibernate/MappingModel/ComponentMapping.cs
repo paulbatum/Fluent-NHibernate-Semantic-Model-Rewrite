@@ -7,11 +7,11 @@ using System.Reflection;
 
 namespace FluentNHibernate.MappingModel
 {
-    public class ComponentMapping : IMappingBase, IHasMappedMembers
+    public class ComponentMapping : IMappingBase, IHasMappedMembers, IMapsMember
     {
         private readonly AttributeStore<ComponentMapping> _attributes;
         private readonly MappedMembers _mappedMembers;
-        public PropertyInfo PropertyInfo { get; set; }
+        public MemberInfo MemberInfo { get; set; }
         public Type ComponentType { get; set; }
 
         public ComponentMapping()

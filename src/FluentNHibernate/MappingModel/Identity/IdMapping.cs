@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace FluentNHibernate.MappingModel.Identity
 {
-    public class IdMapping : MappingBase, IIdentityMapping, INameable
+    public class IdMapping : MappingBase, IIdentityMapping, INameable, IMapsMember
     {
         private readonly AttributeStore<IdMapping> _attributes;
         private readonly IList<ColumnMapping> _columns;
@@ -33,7 +33,7 @@ namespace FluentNHibernate.MappingModel.Identity
             get { return _columns; }
         }
 
-        public PropertyInfo PropertyInfo { get; set; }
+        public MemberInfo MemberInfo { get; set; }
 
         public override void AcceptVisitor(IMappingModelVisitor visitor)
         {

@@ -23,6 +23,12 @@ namespace FluentNHibernate.Reflection
             return memberExpression.Member;
         }
 
+        public static MemberInfo GetMember<MODEL, T>(Expression<Func<MODEL, T>> expression)
+        {
+            MemberExpression memberExpression = getMemberExpression(expression);
+            return memberExpression.Member;
+        }
+
         public static FieldInfo GetField<MODEL>(Expression<Func<MODEL, object>> expression)
         {
             return (FieldInfo)GetMember(expression);

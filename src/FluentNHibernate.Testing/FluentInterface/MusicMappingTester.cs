@@ -80,12 +80,12 @@ namespace FluentNHibernate.Testing.FluentInterface
             ClassMapping mapping = artistMap.GetClassMapping();
 
             PropertyMapping prop = mapping.Properties.First();
-            prop.PropertyInfo.ShouldNotBeNull();
+            prop.MemberInfo.ShouldNotBeNull();
             prop.Length.ShouldEqual(50);
             prop.IsNotNullable.ShouldBeTrue();
 
             ICollectionMapping col = mapping.Collections.First();
-            col.PropertyInfo.ShouldNotBeNull();
+            col.MemberInfo.ShouldNotBeNull();
             col.ShouldBeOfType(typeof(SetMapping));
             col.IsInverse.ShouldBeTrue();
         }
@@ -97,21 +97,21 @@ namespace FluentNHibernate.Testing.FluentInterface
             ClassMapping mapping = albumMap.GetClassMapping();
 
             PropertyMapping prop = mapping.Properties.First();
-            prop.PropertyInfo.ShouldNotBeNull();
+            prop.MemberInfo.ShouldNotBeNull();
             prop.Length.ShouldEqual(50);
             prop.IsNotNullable.ShouldBeTrue();
 
             ManyToOneMapping reference = mapping.References.First();
-            reference.PropertyInfo.ShouldEqual(ReflectionHelper.GetProperty<Album>(x => x.Artist));
+            reference.MemberInfo.ShouldEqual(ReflectionHelper.GetMember<Album>(x => x.Artist));
 
             ICollectionMapping tracks = mapping.Collections.First();
-            tracks.PropertyInfo.ShouldNotBeNull();
+            tracks.MemberInfo.ShouldNotBeNull();
             tracks.ShouldBeOfType(typeof(SetMapping));
             tracks.Contents.ShouldBeOfType(typeof(OneToManyMapping));
             tracks.IsInverse.ShouldBeTrue();
 
             ICollectionMapping tags = mapping.Collections.Skip(1).First();
-            tags.PropertyInfo.ShouldNotBeNull();
+            tags.MemberInfo.ShouldNotBeNull();
             tags.ShouldBeOfType(typeof (SetMapping));
             tags.Contents.ShouldBeOfType(typeof(ManyToManyMapping));            
         }
@@ -122,16 +122,16 @@ namespace FluentNHibernate.Testing.FluentInterface
             var trackMap = new TrackMap();
             ClassMapping mapping = trackMap.GetClassMapping();
 
-            PropertyMapping nameProp = mapping.Properties.Where(p => p.PropertyInfo.Name == "Name").FirstOrDefault();
+            PropertyMapping nameProp = mapping.Properties.Where(p => p.MemberInfo.Name == "Name").FirstOrDefault();
             nameProp.ShouldNotBeNull();
             nameProp.Length.ShouldEqual(50);
             nameProp.IsNotNullable.ShouldBeTrue();
 
-            PropertyMapping numberProp = mapping.Properties.Where(p => p.PropertyInfo.Name == "TrackNumber").FirstOrDefault();
+            PropertyMapping numberProp = mapping.Properties.Where(p => p.MemberInfo.Name == "TrackNumber").FirstOrDefault();
             numberProp.ShouldNotBeNull();
 
             ManyToOneMapping reference = mapping.References.First();
-            reference.PropertyInfo.ShouldEqual(ReflectionHelper.GetProperty<Track>(x => x.Album));
+            reference.MemberInfo.ShouldEqual(ReflectionHelper.GetMember<Track>(x => x.Album));
         }
 
         [Test]

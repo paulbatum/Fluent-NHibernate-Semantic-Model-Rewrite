@@ -40,18 +40,18 @@ namespace FluentNHibernate.FluentInterface
 
         public void Id(Expression<Func<T, object>> expression)
         {
-            PropertyInfo info = ReflectionHelper.GetProperty(expression);
+            MemberInfo info = ReflectionHelper.GetMember(expression);
 
-            _classMapping.Id = new IdMapping(new ColumnMapping { PropertyInfo = info })
+            _classMapping.Id = new IdMapping(new ColumnMapping { MemberInfo = info })
                                    {
-                                       PropertyInfo = info,
+                                       MemberInfo = info,
                                        Generator = IdGeneratorMapping.NativeGenerator
                                    };
         }
 
         public OneToManyPart<T, CHILD> HasMany<CHILD>(Expression<Func<T, object>> expression)
         {
-            PropertyInfo info = ReflectionHelper.GetProperty(expression);
+            MemberInfo info = ReflectionHelper.GetMember(expression);
 
             var part = new OneToManyPart<T, CHILD>(info);
             _deferredCollections.Add(part);
@@ -60,7 +60,7 @@ namespace FluentNHibernate.FluentInterface
 
         public ManyToManyPart<T, CHILD> HasManyToMany<CHILD>(Expression<Func<T, object>> expression)
         {
-            PropertyInfo info = ReflectionHelper.GetProperty(expression);
+            MemberInfo info = ReflectionHelper.GetMember(expression);
 
             var part = new ManyToManyPart<T, CHILD>(info);
             _deferredCollections.Add(part);
@@ -69,9 +69,9 @@ namespace FluentNHibernate.FluentInterface
 
         public ManyToOnePart References(Expression<Func<T, object>> expression)
         {
-            PropertyInfo info = ReflectionHelper.GetProperty(expression);
+            MemberInfo info = ReflectionHelper.GetMember(expression);
 
-            var mapping = new ManyToOneMapping { PropertyInfo = info };
+            var mapping = new ManyToOneMapping { MemberInfo = info };
             _classMapping.AddReference(mapping);
             return new ManyToOnePart(mapping);
         }

@@ -31,7 +31,7 @@ namespace FluentNHibernate.Testing.FluentInterface
 
             var id = mapping.Id as IdMapping;
             id.ShouldNotBeNull();
-            id.PropertyInfo.ShouldNotBeNull();
+            id.MemberInfo.ShouldNotBeNull();
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace FluentNHibernate.Testing.FluentInterface
 
             var property = mapping.Properties.FirstOrDefault();
             property.ShouldNotBeNull();
-            property.PropertyInfo.ShouldEqual(ReflectionHelper.GetProperty<Artist>(x => x.Name));
+            property.MemberInfo.ShouldEqual(ReflectionHelper.GetMember<Artist>(x => x.Name));
         }
 
         [Test]
@@ -55,7 +55,7 @@ namespace FluentNHibernate.Testing.FluentInterface
 
             var collection = mapping.Collections.FirstOrDefault() as BagMapping;
             collection.ShouldNotBeNull();
-            collection.PropertyInfo.ShouldEqual(ReflectionHelper.GetProperty<Artist>(x => x.Albums));
+            collection.MemberInfo.ShouldEqual(ReflectionHelper.GetMember<Artist>(x => x.Albums));
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace FluentNHibernate.Testing.FluentInterface
 
             var reference = mapping.References.FirstOrDefault();
             reference.ShouldNotBeNull();
-            reference.PropertyInfo.ShouldEqual(ReflectionHelper.GetProperty<Album>(x => x.Artist));
+            reference.MemberInfo.ShouldEqual(ReflectionHelper.GetMember<Album>(x => x.Artist));
         }
 
         [Test]
