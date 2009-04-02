@@ -43,7 +43,7 @@ namespace FluentNHibernate.Testing.MappingModel
         private class TestEntity
         {
             public string StringProperty { get; set; }
-            public string StringField;
+            public string StringField = null;
         }
     }
 }

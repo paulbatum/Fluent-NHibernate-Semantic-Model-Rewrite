@@ -83,6 +83,22 @@ namespace FluentNHibernate.MappingModel
         public static readonly NamingStrategy PascalCaseUnderscore = new NamingStrategy("pascalcase-underscore");
         public static readonly NamingStrategy PascalCase_M_Underscore = new NamingStrategy("pascalcase-m-underscore");
 
+        public static IEnumerable<NamingStrategy> AllStrategies
+        {
+            get
+            {
+                return new List<NamingStrategy>
+                           {
+                               CamelCase,
+                               CamelCaseUnderscore,
+                               LowerCase,
+                               LowerCaseUnderscore,
+                               PascalCaseUnderscore,
+                               PascalCase_M_Underscore
+                           };
+            }
+        }
+
         protected NamingStrategy(string value)
         {
             _value = value;
@@ -105,6 +121,34 @@ namespace FluentNHibernate.MappingModel
         public override int GetHashCode()
         {
             return _value.GetHashCode();
+        }
+
+        public string ApplyTo(string input)
+        {
+            if (this == CamelCase)
+                return ToCamelCase(input);
+            if(this == CamelCaseUnderscore)
+                return "_" + ToCamelCase(input);
+            if (this == LowerCase)
+                return input.ToLower();
+            if (this == LowerCaseUnderscore)
+                return "_" + input.ToLower();
+            if (this == PascalCaseUnderscore)
+                return "_" + ToPascalCase(input);
+            if (this == PascalCase_M_Underscore)
+                return "m_" + ToPascalCase(input);
+
+            return input;
+        }
+
+        private string ToCamelCase(string input)
+        {
+            return input.Substring(0, 1).ToLower() + input.Substring(1);
+        }
+
+        private string ToPascalCase(string input)
+        {
+            return input.Substring(0, 1).ToUpper() + input.Substring(1);
         }
     }
 

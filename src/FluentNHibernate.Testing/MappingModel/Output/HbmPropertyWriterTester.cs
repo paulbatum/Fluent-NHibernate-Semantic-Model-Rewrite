@@ -32,7 +32,7 @@ namespace FluentNHibernate.Testing.MappingModel.Output
             testHelper.Check(x => x.Length, 50).MapsToAttribute("length");
             testHelper.Check(x => x.IsNotNullable, true).MapsToAttribute("not-null");
             testHelper.Check(x => x.ColumnName, "thecolumn").MapsToAttribute("column");
-				testHelper.Check(x => x.Unique, true).MapsToAttribute("unique");
+		    testHelper.Check(x => x.Unique, true).MapsToAttribute("unique");
             testHelper.VerifyAll(_writer);
         }
 
