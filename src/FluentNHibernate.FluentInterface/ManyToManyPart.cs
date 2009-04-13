@@ -7,39 +7,40 @@ namespace FluentNHibernate.FluentInterface
 {
     public class ManyToManyPart<PARENT, CHILD> : IDeferredCollectionMapping
     {
-        private readonly MemberInfo _info;
-        private readonly AttributeStore<ICollectionMapping> _attributes;
-
-        private Func<ICollectionMapping> _collectionBuilder;
+        private DeferredCollectionMapping<ManyToManyPart<PARENT, CHILD>> _internalCollection;
 
         public ManyToManyPart(MemberInfo info)
         {
-            _info = info;
-            _attributes = new AttributeStore<ICollectionMapping>();
-            AsBag();   
+            _internalCollection = new DeferredCollectionMapping<ManyToManyPart<PARENT, CHILD>>(info, this);
+        }
+
+        public CollectionCascadePart<ManyToManyPart<PARENT, CHILD>> Cascade
+        {
+            get { return _internalCollection.Cascade; }
         }
 
         public ManyToManyPart<PARENT, CHILD> AsBag()
         {
-            _collectionBuilder = () => new BagMapping();
+            _internalCollection.AsBag();
             return this;
         }
 
         public ManyToManyPart<PARENT, CHILD> AsSet()
         {
-            _collectionBuilder = () => new SetMapping();
+            _internalCollection.AsSet();
             return this;
         }
 
-        public ICollectionMapping ResolveCollectionMapping()
+        public ManyToManyPart<PARENT, CHILD> IsInverse()
         {
-            var collection = _collectionBuilder();
-            _attributes.CopyTo(collection.Attributes);
+            _internalCollection.IsInverse();
+            return this;
+        }
 
-            collection.BindToMember(_info);
-            collection.Key = new KeyMapping();
+        ICollectionMapping IDeferredCollectionMapping.ResolveCollectionMapping()
+        {
+            var collection = _internalCollection.ResolveCollectionMapping();
             collection.Contents = new ManyToManyMapping { ChildType = typeof(CHILD) };
-
             return collection;
         }
     }

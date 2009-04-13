@@ -10,6 +10,6 @@ namespace FluentNHibernate.MappingModel.Collections
         KeyMapping Key { get; set; }
         ICollectionContentsMapping Contents { get; set; }
         AttributeStore<ICollectionMapping> Attributes { get; }
-        CascadeType Cascade { get; }
+        CollectionCascadeType Cascade { get; }
     }
 }

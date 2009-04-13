@@ -17,7 +17,7 @@ namespace FluentNHibernate.Testing.MappingModel.Output
         [Test]
         public void Default_cascade_type_is_none()
         {
-            _mapping.Cascade.ShouldEqual(CascadeType.None);
+            _mapping.Cascade.ShouldEqual(CollectionCascadeType.None);
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace FluentNHibernate.Testing.MappingModel.Output
         [Test]
         public void Should_write_the_cascade_type_when_set()
         {
-            _mapping.Cascade = CascadeType.SaveUpdate;
+            _mapping.Cascade = CollectionCascadeType.SaveUpdate;
 
             _writer.VerifyXml(_mapping)
                 .HasAttribute("cascade", "save-update");

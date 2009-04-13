@@ -61,14 +61,14 @@
     <Compile Include="Cfg\PostgreSQLConfiguration.cs" />
     <Compile Include="Cfg\SQLiteConfiguration.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="MappingModel\AccessStrategyBuilder.cs" />
     <Compile Include="MappingModel\AttributeStore.cs" />
     <Compile Include="MappingModel\ClassMappingBase.cs" />
-    <Compile Include="MappingModel\Collections\CascadeType.cs" />
+    <Compile Include="MappingModel\Collections\CollectionCascadeType.cs" />
     <Compile Include="MappingModel\Collections\CollectionMappingBase.cs" />
     <Compile Include="MappingModel\Collections\IndexMapping.cs" />
     <Compile Include="MappingModel\Collections\ListMapping.cs" />
     <Compile Include="MappingModel\Collections\ManyToManyMapping.cs" />
+    <Compile Include="MappingModel\ReferenceCascadeType.cs" />
     <Compile Include="MappingModel\Collections\SetMapping.cs" />
     <Compile Include="MappingModel\Collections\BagMapping.cs" />
     <Compile Include="MappingModel\Collections\ICollectionContentsMapping.cs" />
