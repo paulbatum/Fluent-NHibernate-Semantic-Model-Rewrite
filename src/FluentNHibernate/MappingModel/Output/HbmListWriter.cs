@@ -45,6 +45,9 @@ namespace FluentNHibernate.MappingModel.Output
 
             if (listMapping.Attributes.IsSpecified(x => x.IsLazy))
                 _hbm.SetLazy(listMapping.IsLazy);
+
+            if (listMapping.Attributes.IsSpecified(x => x.Cascade))
+                _hbm.cascade = listMapping.Cascade.ToString();
         }
 
         public override void Visit(ICollectionContentsMapping contentsMapping)

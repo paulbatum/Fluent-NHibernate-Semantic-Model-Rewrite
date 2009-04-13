@@ -44,10 +44,11 @@ namespace FluentNHibernate.MappingModel.Output
             if (bagMapping.Attributes.IsSpecified(x => x.IsInverse))
                 _hbm.inverse = bagMapping.IsInverse;
 
-            if( bagMapping.Attributes.IsSpecified(x => x.IsLazy))
-            {
+            if(bagMapping.Attributes.IsSpecified(x => x.IsLazy))
                 _hbm.SetLazy(bagMapping.IsLazy);
-            }
+
+            if (bagMapping.Attributes.IsSpecified(x => x.Cascade))
+                _hbm.cascade = bagMapping.Cascade.ToString();
         }
 
         public override void Visit(ICollectionContentsMapping contentsMapping)

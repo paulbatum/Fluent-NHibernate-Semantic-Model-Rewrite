@@ -9,6 +9,7 @@ namespace FluentNHibernate.MappingModel.Collections
         bool IsLazy { get; }
         KeyMapping Key { get; set; }
         ICollectionContentsMapping Contents { get; set; }
-        AttributeStore<ICollectionMapping> Attributes { get; }        
+        AttributeStore<ICollectionMapping> Attributes { get; }
+        CascadeType Cascade { get; }
     }
 }

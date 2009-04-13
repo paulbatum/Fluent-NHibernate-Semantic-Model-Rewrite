@@ -88,6 +88,7 @@
     <Compile Include="MappingModel\HibernateMappingTester.cs" />
     <Compile Include="MappingModel\MappingTestingExtensions.cs" />
     <Compile Include="MappingModel\MemberAccessTester.cs" />
+    <Compile Include="MappingModel\Output\HbmCollectionMappingCascadeBehavior.cs" />
     <Compile Include="MappingModel\Output\HbmBagWriterTester.cs" />
     <Compile Include="MappingModel\Output\HbmClassWriterTester.cs" />
     <Compile Include="MappingModel\Output\HbmCollectionContentsWriterTester.cs" />

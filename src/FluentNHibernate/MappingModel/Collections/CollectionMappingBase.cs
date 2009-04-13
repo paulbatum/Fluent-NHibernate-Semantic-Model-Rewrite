@@ -14,6 +14,7 @@ namespace FluentNHibernate.MappingModel.Collections
         protected CollectionMappingBase(AttributeStore underlyingStore) : base(underlyingStore)
         {
             _attributes = new AttributeStore<ICollectionMapping>(underlyingStore);
+            _attributes.SetDefault(x => x.Cascade, CascadeType.None);
         }
 
         public override void AcceptVisitor(IMappingModelVisitor visitor)
@@ -53,6 +54,11 @@ namespace FluentNHibernate.MappingModel.Collections
             get { return _attributes.IsSpecified(x => x.Name); }
         }
 
-    }
+        public CascadeType Cascade
+        {
+            get { return _attributes.Get(x => x.Cascade); }
+            set { _attributes.Set(x => x.Cascade, value); }
+        }
 
+    }
 }
