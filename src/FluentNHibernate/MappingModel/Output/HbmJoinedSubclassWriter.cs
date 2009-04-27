@@ -31,6 +31,30 @@ namespace FluentNHibernate.MappingModel.Output
         {
             _hbm = new HbmJoinedSubclass();
             _hbm.name = subclassMapping.Name;
+
+            if (subclassMapping.Attributes.IsSpecified(x => x.Proxy))
+                _hbm.proxy = subclassMapping.Proxy.AssemblyQualifiedName;
+
+            if (subclassMapping.Attributes.IsSpecified(x => x.Lazy))
+            {
+                _hbm.lazy = subclassMapping.Lazy;
+                _hbm.lazySpecified = true;
+            }
+
+            if (subclassMapping.Attributes.IsSpecified(x => x.DynamicUpdate))
+                _hbm.dynamicupdate = subclassMapping.DynamicUpdate;
+
+            if (subclassMapping.Attributes.IsSpecified(x => x.DynamicInsert))
+                _hbm.dynamicinsert = subclassMapping.DynamicInsert;
+
+            if (subclassMapping.Attributes.IsSpecified(x => x.SelectBeforeUpdate))
+                _hbm.selectbeforeupdate = subclassMapping.SelectBeforeUpdate;
+
+            if (subclassMapping.Attributes.IsSpecified(x => x.Abstract))
+            {
+                _hbm.@abstract = subclassMapping.Abstract;
+                _hbm.abstractSpecified = true;
+            }
         }
 
         public override void Visit(KeyMapping keyMapping)

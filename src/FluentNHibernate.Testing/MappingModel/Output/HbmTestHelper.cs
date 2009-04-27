@@ -33,8 +33,11 @@ namespace FluentNHibernate.Testing.MappingModel.Output
             {
                 var mapping = new MAPPING_TYPE();
                 test.ApplyToSource(mapping);
+
                 var serializer = new MappingXmlSerializer();
-                var xmlDoc = serializer.SerializeHbmFragment(writer.Write(mapping));                
+                object hbmFragment = writer.Write(mapping);
+                var xmlDoc = serializer.SerializeHbmFragment(hbmFragment);                
+
                 test.Check(xmlDoc);
             }
         }

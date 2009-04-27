@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using FluentNHibernate.MappingModel.Identity;
@@ -65,16 +66,21 @@ namespace FluentNHibernate.MappingModel
             base.AcceptVisitor(visitor);
         }
 
+        public AttributeStore<ClassMapping> Attributes
+        {
+            get { return _attributes; }
+        }
+
         public string TableName
         {
             get { return _attributes.Get(x => x.TableName); }
             set { _attributes.Set(x => x.TableName, value); }
         }
 
-        public AttributeStore<ClassMapping> Attributes
-        {
-            get { return _attributes; }
-        }
+
+
+
+
 
         
     }

@@ -76,6 +76,44 @@ namespace FluentNHibernate.MappingModel
 
         #endregion
 
+        // TODO: Check NHibernate validation rules.
+        public Type Proxy
+        {
+            get { return _attributes.Get(x => x.Proxy); }
+            set { _attributes.Set(x => x.Proxy, value); }
+        }
+
+        // TODO: Should this property interact with Proxy somehow?
+        public bool Lazy
+        {
+            get { return _attributes.Get(x => x.Lazy); }
+            set { _attributes.Set(x => x.Lazy, value); }
+        }
+
+        public bool DynamicUpdate
+        {
+            get { return _attributes.Get(x => x.DynamicUpdate); }
+            set { _attributes.Set(x => x.DynamicUpdate, value); }
+        }
+
+        public bool DynamicInsert
+        {
+            get { return _attributes.Get(x => x.DynamicInsert); }
+            set { _attributes.Set(x => x.DynamicInsert, value); }
+        }
+
+        public bool SelectBeforeUpdate
+        {
+            get { return _attributes.Get(x => x.SelectBeforeUpdate); }
+            set { _attributes.Set(x => x.SelectBeforeUpdate, value); }
+        }
+
+        public bool Abstract
+        {
+            get { return _attributes.Get(x => x.Abstract); }
+            set { _attributes.Set(x => x.Abstract, value); }
+        }
+
 		public override string ToString()
 		{
 			return string.Format("ClassMapping({0})", this.Type.Name);

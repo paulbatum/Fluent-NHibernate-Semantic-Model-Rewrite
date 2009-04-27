@@ -12,5 +12,6 @@ namespace FluentNHibernate.Versioning.HbmExtensions
         {
             hbmClass.Item1 = hbmId;
         }
+      
     }
 }

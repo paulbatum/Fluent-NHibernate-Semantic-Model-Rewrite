@@ -39,6 +39,30 @@ namespace FluentNHibernate.MappingModel.Output
 
             if (classMapping.Attributes.IsSpecified(x => x.TableName))
                 _hbm.table = classMapping.TableName;
+
+            if (classMapping.Attributes.IsSpecified(x => x.Proxy))
+                _hbm.proxy = classMapping.Proxy.AssemblyQualifiedName;
+
+            if (classMapping.Attributes.IsSpecified(x => x.Lazy))
+            {
+                _hbm.lazy = classMapping.Lazy;
+                _hbm.lazySpecified = true;
+            }
+
+            if (classMapping.Attributes.IsSpecified(x => x.DynamicUpdate))
+                _hbm.dynamicupdate = classMapping.DynamicUpdate;
+
+            if (classMapping.Attributes.IsSpecified(x => x.DynamicInsert))
+                _hbm.dynamicinsert = classMapping.DynamicInsert;
+
+            if (classMapping.Attributes.IsSpecified(x => x.SelectBeforeUpdate))
+                _hbm.selectbeforeupdate = classMapping.SelectBeforeUpdate;
+
+            if (classMapping.Attributes.IsSpecified(x => x.Abstract))
+            {
+                _hbm.@abstract = classMapping.Abstract;
+                _hbm.abstractSpecified = true;
+            }
         }
 
         public override void Visit(IIdentityMapping idMapping)
