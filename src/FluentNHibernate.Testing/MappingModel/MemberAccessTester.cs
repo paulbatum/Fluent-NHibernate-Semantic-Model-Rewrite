@@ -68,6 +68,13 @@ namespace FluentNHibernate.Testing.MappingModel
                 throw new System.NotImplementedException();
             }
 
+            // Satisfy NH 2.1 implementation
+            public bool CanAccessThroughReflectionOptimizer
+            {
+                get { throw new NotImplementedException(); }
+            }
+
+            // Satisfy NH 2.0.1 implementation
             public bool CanAccessTroughReflectionOptimizer
             {
                 get { throw new System.NotImplementedException(); }
