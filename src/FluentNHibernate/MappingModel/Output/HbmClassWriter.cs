@@ -37,8 +37,8 @@ namespace FluentNHibernate.MappingModel.Output
             _hbm = new HbmClass();
             _hbm.name = classMapping.Name;
 
-            if (classMapping.Attributes.IsSpecified(x => x.Tablename))
-                _hbm.table = classMapping.Tablename;
+            if (classMapping.Attributes.IsSpecified(x => x.TableName))
+                _hbm.table = classMapping.TableName;
         }
 
         public override void Visit(IIdentityMapping idMapping)

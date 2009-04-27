@@ -36,7 +36,7 @@ namespace FluentNHibernate.FluentInterface.AutoMap
                     classesFound.Add(new ClassMapping
                                                {
                                                    Name = type.FullName,
-                                                   Tablename = type.Name,
+                                                   TableName = type.Name,
                                                    Type = type
                                                });
             }

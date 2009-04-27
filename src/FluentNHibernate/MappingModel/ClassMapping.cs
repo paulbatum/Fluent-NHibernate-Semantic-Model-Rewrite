@@ -65,10 +65,10 @@ namespace FluentNHibernate.MappingModel
             base.AcceptVisitor(visitor);
         }
 
-        public string Tablename
+        public string TableName
         {
-            get { return _attributes.Get(x => x.Tablename); }
-            set { _attributes.Set(x => x.Tablename, value); }
+            get { return _attributes.Get(x => x.TableName); }
+            set { _attributes.Set(x => x.TableName, value); }
         }
 
         public AttributeStore<ClassMapping> Attributes
